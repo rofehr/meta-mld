@@ -1,0 +1,32 @@
+diff --git a/Makefile b/Makefile
+index 2643049..6fe3b8b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -5,7 +5,7 @@
+ 
+ # Config
+ CONFIG := #-DDOPROFILE			        # enable profiling code
+-CONFIG += #-DDO_NOT_USE_SKININSTALLER	# disable installer in skindesigner setup
++CONFIG += -DDO_NOT_USE_SKININSTALLER	# disable installer in skindesigner setup
+ 
+ # The official name of this plugin.
+ PLUGIN = skindesigner
+@@ -45,15 +45,16 @@ SOFILE = libvdr-$(PLUGIN).so
+ 
+ ### Includes and Defines and Dependencies:
+ DEFINES += -DPLUGIN_NAME_I18N='"$(PLUGIN)"' $(CONFIG)
+-DEFINES += $(shell xml2-config --cflags)
++#DEFINES += $(shell xml2-config --cflags)
+ DEFINES += -DSCRIPTFOLDER='"$(SKINDESIGNER_SCRIPTDIR)"'
+ DEFINES += -D__STL_CONFIG_H
+ 
++INCLUDES += -I$(SDKSTAGE)/usr/include/libxml2
+ INCLUDES += $(shell pkg-config --cflags freetype2 fontconfig)
+ INCLUDES += $(shell pkg-config --cflags librsvg-2.0 cairo-png) -ljpeg
+ 
+ LIBS += $(shell pkg-config --libs librsvg-2.0 cairo-png) -ljpeg
+-LIBS += $(shell xml2-config --libs)
++LIBS += -lxml2 #$(shell xml2-config --libs)
+ LIBS += $(shell pkg-config --libs libcurl)
+ 
+ ### The object files:
