@@ -5,7 +5,7 @@ LICENSE = "CLOSED"
 PR = "r1"
 
 SRC_URI = "git://github.com/rofehr/gstreamerdevice.git;branch=kms"
-SRCREV = "5668fae5ff72f7726210fcc25a21fcac28b82d8a"
+SRCREV = "3c1c4d8b1adf9976145b8874a0e2e6c429396365"
 
 S = "${WORKDIR}/git"
 
