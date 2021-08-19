@@ -1,0 +1,20 @@
+diff -C 3 D:/_Temp/ffmpeg-patch/v4l2_request.c.org D:/_Temp/ffmpeg-patch/v4l2_request.c
+*** D:/_Temp/ffmpeg-patch/v4l2_request.c.org	Sat May  1 12:28:46 2021
+--- D:/_Temp/ffmpeg-patch/v4l2_request.c	Wed May  5 12:14:25 2021
+***************
+*** 53,58 ****
+--- 53,66 ----
+  #define DRM_FORMAT_NV20 fourcc_code('N', 'V', '2', '0')
+  #endif
+  
++ #ifndef V4L2_PIX_FMT_NV12_10_COL128
++ #define V4L2_PIX_FMT_NV12_10_COL128 v4l2_fourcc('N', 'C', '3', '0')
++ #endif
++ 
++ #ifndef V4L2_PIX_FMT_NV12_COL128
++ #define V4L2_PIX_FMT_NV12_COL128 v4l2_fourcc('N', 'C', '1', '2')
++ #endif
++ 
+  uint64_t ff_v4l2_request_get_capture_timestamp(AVFrame *frame)
+  {
+      V4L2RequestDescriptor *req = (V4L2RequestDescriptor*)frame->data[0];

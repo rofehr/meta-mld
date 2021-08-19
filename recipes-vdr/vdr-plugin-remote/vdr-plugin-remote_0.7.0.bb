@@ -17,7 +17,7 @@ inherit pkgconfig gettext
 
 DEPENDS = "vdr"
 
-CXXFLAGS_append = " -fPIC -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE"
+CXXFLAGS:append = " -fPIC -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE"
 
 do_install() {
 	oe_runmake DESTDIR=${D} install

@@ -1,0 +1,66 @@
+#! /bin/sh
+
+{
+. /etc/init.d/rc.functions
+export BOOTSTEPS=20
+
+mount proc
+mount sys
+mount dev
+
+show_splash
+
+echo "Configure packages:"
+export init=1
+dpkg --configure --pending
+check_status
+
+root=$(sed "s/.*root=\(\S\+\).*\|.*/\1/" /proc/cmdline) #"
+for _ in $(seq 10); do
+	blkid -t $root &>/dev/null && root=$(blkid -o device -l -t $root)
+	test -e /$root && break
+	echo -en "Waiting for root device: $(show_step) \r"
+	sleep 1
+done
+
+if [ -e "$root" ] && ! grep -q snapshot /proc/cmdline; then
+	echo "Root device is: $root     "
+	mkdir /rootfs || failed
+	mount $root /rootfs || failed
+	cp -a /dev/console /dev/tty5 /rootfs/dev/
+	check_status
+else
+	if [ ! -e /$root ]; then
+		echo "Unknown root device: $root"
+		check_status 1
+	fi
+	echo "Copy initramfs to tmpfs:  "
+	echo "Root device is: $root     "
+	mkdir /rootfs || failed
+	check_status
+	
+	mount -n rootfs /rootfs -t tmpfs -o size=80% || failed
+	check_status
+	
+	find / -maxdepth 1 ! -wholename / ! -name rootfs ! -name proc ! -name sys -exec cp -a {} /rootfs ";" || failed
+	check_status
+
+	
+	mkdir -p /rootfs/proc /rootfs/sys /rootfs/tmp || failed
+	check_status
+	chmod 1777 /rootfs/tmp || failed
+	check_status
+	check_status
+fi
+
+stop_splash || failed
+umount dev || failed
+umount sys || failed
+umount proc || failed
+
+} 2>&1 | tee -a /var/log/sysinit
+
+test -e /rootfs/var/log/sysinit && mv /rootfs/var/log/sysinit /rootfs/var/log/sysinit.old || failed
+mv /var/log/sysinit /rootfs/var/log/sysinit || failed
+
+exec switch_root /rootfs /sbin/init || failed

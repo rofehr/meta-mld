@@ -2,10 +2,10 @@ SUMMARY = "VDR HD output device "
 LICENSE = "CLOSED"
 #COMPATIBLE_MACHINE = "(raspberrypi|raspberrypi2|raspberrypi3|raspberrypi4|raspberrypi4-64)"
 
-PR = "r1"
+PR = "r2"
 
 SRC_URI = "git://github.com/zillevdr/vdr-plugin-softhddevice-drm.git;branch=drm"
-SRCREV = "8d84e6ef7707a40e43ef33492e4b500df9109570"
+SRCREV = "981a1bfcdde9e2a03b492c89c1f8f0d4ea6be07e"
 
 #SRC_URI += " \
 #    file://rpihddevice-opt-vc.diff \
@@ -18,8 +18,8 @@ inherit pkgconfig gettext
 ASNEEDED = ""
 
 DEPENDS = " \
-	vdr \
-    ffmpeg \
+	  vdr \
+    rpi-ffmpeg \
     freetype \
     virtual/libgl \
     virtual/libgles2 \

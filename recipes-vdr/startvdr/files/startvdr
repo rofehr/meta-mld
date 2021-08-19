@@ -1,3 +1,4 @@
 #! /bin/sh
 #
-vdr -Pgstreamerdevice -P 'satip -s 192.168.178.150|DVBC-1|OctopusNet'
+#vdr -Pgstreamerdevice -P 'satip -s 192.168.178.150|DVBC-1|OctopusNet'
+vdr -Psofthddevice-drm -P 'satip -s 192.168.178.150|DVBC-1|OctopusNet'

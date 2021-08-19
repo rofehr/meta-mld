@@ -11,3 +11,8 @@ RDEPENDS_${PN} = "\
     gstreamer1.0-plugins-bad \
     gstreamer1.0-plugins-ugly \
 "
+
+RDEPENDS_${PN}_rock-pi-4b += " \
+    gstreamer1.0-rockchip \
+    rockchip-mpp \
+    "

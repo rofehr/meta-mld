@@ -4,8 +4,11 @@ LICENSE = "CLOSED"
 
 PR = "r1"
 
-SRC_URI = "git://github.com/rofehr/gstreamerdevice.git;branch=kms"
-SRCREV = "3c1c4d8b1adf9976145b8874a0e2e6c429396365"
+#SRC_URI = "git://github.com/rofehr/gstreamerdevice.git;branch=kms"
+#SRCREV = "3c1c4d8b1adf9976145b8874a0e2e6c429396365"
+
+SRC_URI = "git://github.com/rofehr/gstreamerdevice.git;branch=rockchip"
+SRCREV = "f85a78f58ec6e2911c276a00f0ab49ac46c07ac6"
 
 S = "${WORKDIR}/git"
 
